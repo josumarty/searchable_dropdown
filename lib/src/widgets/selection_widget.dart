@@ -279,7 +279,7 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
         searchBoxController.text,
       );
     else if (noItemWidget != null) {
-      noItemWidget;
+    return  noItemWidget!;
     }
     return Container(
       height: 70,
