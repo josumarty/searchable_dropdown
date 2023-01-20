@@ -17,6 +17,7 @@ class SelectionWidget<T> extends StatefulWidget {
   final List<T> defaultSelectedItems;
   final PopupPropsMultiSelection<T> popupProps;
   final bool isMultiSelectionMode;
+  final Widget? noItemWidget;
 
   const SelectionWidget({
     Key? key,
@@ -28,6 +29,7 @@ class SelectionWidget<T> extends StatefulWidget {
     this.asyncItems,
     this.itemAsString,
     this.filterFn,
+    this.noItemWidget,
     this.compareFn,
   }) : super(key: key);
 
@@ -276,12 +278,14 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
         context,
         searchBoxController.text,
       );
-    else
-      return Container(
-        height: 70,
-        alignment: Alignment.center,
-        child: Text("No data found"),
-      );
+    else if (noItemWidget != null) {
+      noItemWidget;
+    }
+    return Container(
+      height: 70,
+      alignment: Alignment.center,
+      child: Text("No data found"),
+    );
   }
 
   Widget _errorWidget(dynamic error) {
@@ -728,6 +732,8 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
 
   bool get isAllItemSelected =>
       _selectedItems.length >= _currentShowedItems.length;
+
+  Widget? get noItemWidget => widget.noItemWidget;
 
   List<T> get getSelectedItem => List.from(_selectedItems);
 }

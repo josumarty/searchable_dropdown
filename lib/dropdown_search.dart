@@ -34,7 +34,6 @@ typedef Widget DropdownSearchBuilder<T>(BuildContext context, T? selectedItem);
 typedef Widget DropdownSearchBuilderMultiSelection<T>(
   BuildContext context,
   List<T> selectedItems,
-  Widget? noItemWidget,
 );
 typedef Widget DropdownSearchPopupItemBuilder<T>(
   BuildContext context,
@@ -353,7 +352,6 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
         return widget.dropdownBuilderMultiSelection!(
           context,
           getSelectedItems,
-          noItemWidget,
         );
       else if (isMultiSelectionMode) {
         return Wrap(
@@ -677,6 +675,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
       compareFn: widget.compareFn,
       isMultiSelectionMode: isMultiSelectionMode,
       defaultSelectedItems: List.from(getSelectedItems),
+      noItemWidget: noItemWidget,
     );
   }
 
