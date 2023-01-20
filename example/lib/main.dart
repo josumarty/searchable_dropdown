@@ -433,6 +433,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               Theme.of(context).inputDecorationTheme.fillColor,
                         ),
                       ),
+                      noItemWidget: Text("Custom no item"),
                       dropdownBuilder: _customDropDownExampleMultiSelection,
                     ),
                   ),
@@ -609,9 +610,16 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+//
   Widget _customDropDownExampleMultiSelection(
-      BuildContext context, List<UserModel?> selectedItems) {
+    BuildContext context,
+    List<UserModel?> selectedItems,
+    Widget? noItemWidget,
+  ) {
     if (selectedItems.isEmpty) {
+      if (noItemWidget != null) {
+        return noItemWidget;
+      }
       return ListTile(
         contentPadding: EdgeInsets.all(0),
         leading: CircleAvatar(),

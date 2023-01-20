@@ -34,6 +34,7 @@ typedef Widget DropdownSearchBuilder<T>(BuildContext context, T? selectedItem);
 typedef Widget DropdownSearchBuilderMultiSelection<T>(
   BuildContext context,
   List<T> selectedItems,
+  Widget? noItemWidget,
 );
 typedef Widget DropdownSearchPopupItemBuilder<T>(
   BuildContext context,
@@ -162,6 +163,8 @@ class DropdownSearch<T> extends StatefulWidget {
   ///if the callBack return FALSE, the opening of the popup will be cancelled
   final BeforePopupOpeningMultiSelection<T>? onBeforePopupOpeningMultiSelection;
 
+  final Widget? noItemWidget;
+
   DropdownSearch({
     Key? key,
     this.onSaved,
@@ -180,6 +183,7 @@ class DropdownSearch<T> extends StatefulWidget {
     this.itemAsString,
     this.compareFn,
     this.onBeforeChange,
+    this.noItemWidget,
     this.onBeforePopupOpening,
     PopupProps<T> popupProps = const PopupProps.menu(),
   })  : assert(
@@ -210,6 +214,7 @@ class DropdownSearch<T> extends StatefulWidget {
     this.compareFn,
     this.selectedItems = const [],
     this.popupProps = const PopupPropsMultiSelection.menu(),
+    this.noItemWidget,
     FormFieldSetter<List<T>>? onSaved,
     ValueChanged<List<T>>? onChanged,
     BeforeChangeMultiSelection<T>? onBeforeChange,
@@ -348,6 +353,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
         return widget.dropdownBuilderMultiSelection!(
           context,
           getSelectedItems,
+          noItemWidget,
         );
       else if (isMultiSelectionMode) {
         return Wrap(
@@ -779,6 +785,9 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
 
   ///get selected values programmatically
   List<T> get getSelectedItems => _selectedItemsNotifier.value;
+
+//getter fn for no item widget
+  Widget? get noItemWidget => widget.noItemWidget;
 
   ///check if the dropdownSearch is focused
   bool get isFocused => _isFocused.value;
