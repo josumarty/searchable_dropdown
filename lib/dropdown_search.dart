@@ -266,7 +266,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
         ? widget.selectedItems
         : _itemToList(widget.selectedItem);
 
-    if (!listEquals(oldSelectedItems, newSelectedItems) &&
+    if (!listEquals(oldSelectedItems, newSelectedItems) ||
         !listEquals(newSelectedItems, getSelectedItems)) {
       _selectedItemsNotifier.value = List.from(newSelectedItems);
     }
@@ -274,7 +274,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
     ///this code check if we need to refresh the popup widget to update
     ///containerBuilder widget
     if (widget.popupProps.containerBuilder !=
-            oldWidget.popupProps.containerBuilder &&
+            oldWidget.popupProps.containerBuilder ||
         !listEquals(newSelectedItems, getSelectedItems)) {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         _popupStateKey.currentState?.setState(() {});
